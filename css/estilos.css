@@ -1,0 +1,19 @@
+#login .container #login-row #login-col #login-box {
+    margin-top: 70px;
+    max-width: 600px;
+    height: 300px;
+    box-shadow: 2px 2px 2px 2px #343a40;
+    border-radius: 4px;
+}
+
+body {
+    background: #f1f1f1;
+  }
+  
+.caja {
+    background: #ffffff;
+    border: 1px solid gray;
+    border-radius: 12px;
+    padding: 10px;
+}
+  

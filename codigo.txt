@@ -1,0 +1,4 @@
+<!-- Production version -->
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+npm i @popperjs/core
+npm install sweetalert2
