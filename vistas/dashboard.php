@@ -5,6 +5,11 @@
     }else{
         if($_SESSION["s_tipo"] == "admin"){
             header("Location: ../vistas/dashboard_prueba.php");
+            exit();
+        }
+        if($_SESSION["s_tipo"] == "member"){
+            header("Location: ../vistas/dashboard_paciente.php");
+            exit();
         }
     }
 ?>

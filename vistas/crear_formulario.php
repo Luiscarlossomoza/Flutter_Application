@@ -5,45 +5,91 @@ session_start();
 <?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior_admin.php" ?>
 <?php  
+
     $idRegistro = $_GET['id']; 
+    if(isset( $_GET['flag']) && $_GET['flag']!= NULL){
+        $flag = $_GET['flag'];
+        echo "ISSET FLAG";
+        echo "<br>";
+    }else{
+        $flag = -1;
+    } 
+    if(isset( $_GET['p']) && $_GET['p']!= NULL){
+        $insertoPregunta = $_GET['p'];
+        echo "ISSET INSERTO PREGUNTA";
+        echo "<br>";
+    }else{
+        $insertoPregunta = -1;
+    } 
+    $pregunta = 0;
     $idFormulario = '';
-
-    $consulta = "INSERT INTO FORMULARIO(cod_doctor) VALUES($idRegistro)";
-    $ultimoInsert = "SELECT MAX(cod_formulario) AS ultimo FROM FORMULARIO";
-
-    //CREAMOS EL NUEVO FORMULARIO
+    $data3 = [];
     $objeto = new Conexion();
     $conexion = $objeto->Conectar();
-    $resultado = $conexion->prepare($consulta);
-    $resultado->execute();
-    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+    echo "INSERTO PREGUNTA: " . $insertoPregunta;
+    echo "<br>";
+    echo "FLAG: " .$flag;
+    echo "<br>";
     
-    //BUSCAMOS EL ULTIMO FORMULARIO CREADO 
-    $resultado2 = $conexion->prepare( $ultimoInsert);
-    $resultado2->execute();
-    $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
-    $idFormulario = $data2[0]['ultimo'];
-
-    //BUSCAMOS TODAS LAS PREGUNTAS ASOCIADAS A ESE FORMULARIO
-    $preguntaFormulario = "SELECT * FROM PREGUNTA WHERE cod_formulario = $idFormulario";
-    $resultado3 = $conexion->prepare( $preguntaFormulario);
-    $resultado3->execute();
-    $data3 =  $resultado3->fetchAll(PDO::FETCH_ASSOC);
-
-    if(isset($_POST['crearRegistro'])){
-        if(!isset($archivoActual)){
-            header("Location: ../vistas/dashboard_prueba.php");
-        }
-    }
-    if(isset($_POST['crearRegistro']) && !isset($_POST['crearPregunta'])){
-        $destruir = "DELETE FROM FORMULARIO WHERE cod_formulario = $idFormulario";
-        $resultado4 = $conexion->prepare($consulta);
-        $resultado4->execute();
+    if(isset($_POST['crearRegistro']) && $insertoPregunta === -1 && $flag === -1){
         header("Location: ../vistas/dashboard_prueba.php");
+        exit();
+    }
+
+    if(isset($_POST['crearRegistro']) && $insertoPregunta === '1' && $flag === '1'){
+        echo "formulario creado correctamente";
+        header("Location: ../vistas/dashboard_prueba.php");
+        exit();
+    }
+
+    //AQUI SE CREA EL FORMULARIO VACIO Y SE BUSCA EN LA BASE DE DATOS SI ES PRIMERA 
+    //VEZ QUE ENTRAMOS EN LA PAGINA
+    if($insertoPregunta === -1 && $flag === -1 && !isset( $_GET['p']) && !isset( $_GET['flag'])){
+        
+    }
+
+    if($insertoPregunta === "1"){
+        $ultimoInsert = "SELECT MAX(cod_formulario) AS ultimo FROM FORMULARIO";
+        $resultado2 = $conexion->prepare( $ultimoInsert);
+        $resultado2->execute();
+        $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+        $idFormulario = $data2[0]['ultimo'];
+
+        $preguntaFormulario = "SELECT * FROM PREGUNTA WHERE cod_formulario = '$idFormulario'";
+        $resultado3 = $conexion->prepare( $preguntaFormulario);
+        $resultado3->execute();
+        $data3 =  $resultado3->fetchAll(PDO::FETCH_ASSOC);
     }
     if(isset($_POST['crearPregunta'])){
+        echo "Presionaron crearPregunta";
+        echo "Insertando Formulario";
+
+        $numero_pregunta = "SELECT COUNT(num_pregunta) FROM PREGUNTA WHERE cod_formulario = '$idFormulario'";
+        //VERIFICAR SI ES LA PRIMERA PREGUNTA O YA HAY MAS PREGUNTAS
+        if( $insertoPregunta === -1){
+            //CREAMOS EL NUEVO FORMULARIO
+            $consulta = "INSERT INTO FORMULARIO(cod_doctor) VALUES('$idRegistro')";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        }
         
-        header("Location: ../vistas/crear_pregunta.php?id=".$idFormulario);
+        //BUSCAMOS EL ULTIMO FORMULARIO CREADO 
+        $ultimoInsert = "SELECT MAX(cod_formulario) AS ultimo FROM FORMULARIO";
+        $resultado2 = $conexion->prepare( $ultimoInsert);
+        $resultado2->execute();
+        $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+        $idFormulario = $data2[0]['ultimo'];
+
+        $pregunta = "1";
+
+        //BUSCAMOS TODAS LAS PREGUNTAS ASOCIADAS A ESE FORMULARIO
+        $preguntaFormulario = "SELECT * FROM PREGUNTA WHERE cod_formulario = '$idFormulario'";
+        $resultado3 = $conexion->prepare( $preguntaFormulario);
+        $resultado3->execute();
+        $data3 =  $resultado3->fetchAll(PDO::FETCH_ASSOC);
+        header("Location: ../vistas/crear_pregunta.php?id=".$idFormulario."&p=". $pregunta);
+        exit();
         ob_end_flush();
     }
 
@@ -61,14 +107,11 @@ session_start();
     <div class="row caja">
         <div class="col-lg-12">
             <div class="jumbotron">
-            <?php foreach($data3 as $dat){ ?>
-                            <tr>
-                                <td><?php echo $dat['cod_formulario'] ?></td>
-                                <td><?php echo $dat['num_pregunta'] ?></td>
-                                <td><?php echo $dat['enunciado'] ?></td>
-                                <td><?php echo $dat['respuesta'] ?></td>
-                                <td><?php echo $dat['tipo_respuesta'] ?></td>
-                            </tr>
+            <?php foreach($data3 as $data) {?>
+                <div class="mb-3">
+                    <label for="" class="form-label"><?php echo $data['enunciado']; ?></label>
+                    <input type="<?php echo $data['tipo_respuesta']; ?>" class="form-control" name="" placeholder="">                    
+                </div>
                         <?php } ?>
             </div>
         </div>

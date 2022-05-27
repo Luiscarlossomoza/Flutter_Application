@@ -10,7 +10,6 @@
   </head>
   <body>
     <div id="login">
-        <h3 class="text-center display-4" >Login con PHP y Boostrap</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-col" class="col-md-6">
