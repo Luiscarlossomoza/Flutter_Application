@@ -2,13 +2,10 @@
 ob_start();
 session_start(); 
 ?>
-<?php require "../bd/conexion.php" ?>
-<?php require_once "../vistas/parte_superior_admin.php" ?>
+<?php require "../vistas/parte_superior_admin.php" ?>
 <?php 
             $aux = $_SESSION['s_usuario'];
             $consulta = "SELECT * FROM FORMULARIO WHERE cod_doctor = '$aux'";
-            $objeto = new Conexion();
-            $conexion = $objeto->Conectar();
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

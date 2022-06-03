@@ -2,14 +2,11 @@
 ob_start();
 session_start(); 
 ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior_admin.php" ?>
 <?php
     $aux = $_GET['id'];
     $aux2 = $_GET['f'];
     $consulta = "CALL Buscar_pacientes_doctor_sin_formulario('$aux','$aux2')";
-    $objeto = new Conexion();
-    $conexion = $objeto->Conectar();
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

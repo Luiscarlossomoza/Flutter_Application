@@ -2,7 +2,6 @@
 ob_start();
 session_start(); 
 ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior_admin.php" ?>
 <?php  
 
@@ -11,8 +10,6 @@ session_start();
     $data3 = [];
     $vacio = 0;
     $consulta = "SELECT * FROM PREGUNTA AS P  WHERE P.cod_formulario = '$idFormulario' AND P.num_pregunta = '$idPregunta'";
-    $objeto = new Conexion();
-    $conexion = $objeto->Conectar();
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

@@ -1,16 +1,13 @@
 <?php session_start(); ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior_admin.php" ?>
 <?php 
             $aux = $_SESSION['s_usuario'];
             $consulta = "CALL buscar_formularios_contestados_doctor($aux)";
-            $objeto = new Conexion();
-            $conexion = $objeto->Conectar();
+ 
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
             
-
 ?>
 <div class="container">
 

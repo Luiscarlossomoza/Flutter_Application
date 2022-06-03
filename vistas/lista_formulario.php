@@ -1,15 +1,16 @@
 <?php session_start(); ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior.php" ?>
 <?php
      $aux = $_SESSION['s_usuario'];
      $consulta = "SELECT * FROM PACIENTE_FORMULARIO AS PF, USUARIO AS U, PACIENTE AS P WHERE PF.cod_paciente = P.cod_paciente AND P.cod_usuario = U.cod_usuario AND U.cod_usuario = '$aux'";
-     $objeto = new Conexion();
-     $conexion = $objeto->Conectar();
      $resultado = $conexion->prepare($consulta);
      $resultado->execute();
      $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-     $paciente = $data[0]['cod_paciente'];
+     if(($data) != NULL ){
+        $paciente = $data[0]['cod_paciente'];
+     }else{
+        $paciente = [];
+     }
 ?>
 <div class="container">
 

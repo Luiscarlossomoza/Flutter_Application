@@ -38,6 +38,7 @@
             //echo "Enunciado: " . $enunciado;
            // echo "<br>";
            // echo "Tipo: ".$tipo_respuesta;
+         
             $consulta = "INSERT INTO PREGUNTA (cod_formulario,num_pregunta,enunciado,respuesta,tipo_respuesta) VALUES ('$idFormulario',1,'$enunciado',NULL,'$tipo_respuesta')";
             $resultado4 = $conexion->prepare($consulta);
             $resultado4->execute();

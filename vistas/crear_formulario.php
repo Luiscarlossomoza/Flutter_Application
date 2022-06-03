@@ -2,34 +2,23 @@
 ob_start();
 session_start(); 
 ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior_admin.php" ?>
 <?php  
 
     $idRegistro = $_GET['id']; 
     if(isset( $_GET['flag']) && $_GET['flag']!= NULL){
         $flag = $_GET['flag'];
-        echo "ISSET FLAG";
-        echo "<br>";
     }else{
         $flag = -1;
     } 
     if(isset( $_GET['p']) && $_GET['p']!= NULL){
         $insertoPregunta = $_GET['p'];
-        echo "ISSET INSERTO PREGUNTA";
-        echo "<br>";
     }else{
         $insertoPregunta = -1;
     } 
     $pregunta = 0;
     $idFormulario = '';
     $data3 = [];
-    $objeto = new Conexion();
-    $conexion = $objeto->Conectar();
-    echo "INSERTO PREGUNTA: " . $insertoPregunta;
-    echo "<br>";
-    echo "FLAG: " .$flag;
-    echo "<br>";
     
     if(isset($_POST['crearRegistro']) && $insertoPregunta === -1 && $flag === -1){
         header("Location: ../vistas/dashboard_prueba.php");
@@ -40,12 +29,6 @@ session_start();
         echo "formulario creado correctamente";
         header("Location: ../vistas/dashboard_prueba.php");
         exit();
-    }
-
-    //AQUI SE CREA EL FORMULARIO VACIO Y SE BUSCA EN LA BASE DE DATOS SI ES PRIMERA 
-    //VEZ QUE ENTRAMOS EN LA PAGINA
-    if($insertoPregunta === -1 && $flag === -1 && !isset( $_GET['p']) && !isset( $_GET['flag'])){
-        
     }
 
     if($insertoPregunta === "1"){
@@ -61,8 +44,6 @@ session_start();
         $data3 =  $resultado3->fetchAll(PDO::FETCH_ASSOC);
     }
     if(isset($_POST['crearPregunta'])){
-        echo "Presionaron crearPregunta";
-        echo "Insertando Formulario";
 
         $numero_pregunta = "SELECT COUNT(num_pregunta) FROM PREGUNTA WHERE cod_formulario = '$idFormulario'";
         //VERIFICAR SI ES LA PRIMERA PREGUNTA O YA HAY MAS PREGUNTAS

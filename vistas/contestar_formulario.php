@@ -1,11 +1,8 @@
 <?php ob_start(); session_start(); ?>
-<?php require "../bd/conexion.php" ?>
 <?php require_once "../vistas/parte_superior.php" ?>
 <?php
     $cod_paciente = $_GET['id'];
     $cod_formulario = $_GET['f'];
-    $objeto = new Conexion();
-    $conexion = $objeto->Conectar();
     $preguntaFormulario = "SELECT * FROM PREGUNTA WHERE cod_formulario = ' $cod_formulario'";
     $resultado3 = $conexion->prepare( $preguntaFormulario);
     $resultado3->execute();
@@ -18,6 +15,10 @@
                 foreach($data as $dat){
                     $respuesta = $_POST[$dat['num_pregunta']];
                     $numero_pregunta = $dat['num_pregunta'];
+                    $tipo = $dat['tipo_respuesta'];
+    
+                    echo $tipo;
+                    echo "<br>";
                     echo  $respuesta;
                     $insertar_respuesta = "UPDATE PREGUNTA SET respuesta = '$respuesta' WHERE cod_formulario = '$cod_formulario' AND num_pregunta = '$numero_pregunta' ";
                     echo $insertar_respuesta;
