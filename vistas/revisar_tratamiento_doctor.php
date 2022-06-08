@@ -10,7 +10,6 @@ session_start();
             $resultado->execute();
             $dataDoctor=$resultado->fetchAll(PDO::FETCH_ASSOC);
             $idDoctor = $dataDoctor[0]['cod_doctor'];
-            echo $idDoctor;
             $consulta2 = "SELECT * FROM TRATAMIENTO WHERE cod_doctor = '$idDoctor'";
             $resultado = $conexion->prepare($consulta2);
             $resultado->execute();

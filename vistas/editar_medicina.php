@@ -14,7 +14,8 @@ session_start();
     if(isset($_POST['crearRegistro'])){
         $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
-        $actualizar = "UPDATE MEDICINAS SET nombre_medicina = '$nombre', desc_medicina = '$descripcion' WHERE cod_medicinas = '$idMedicina'";
+        $tipo_medicina = $_POST['tipo_medicina'];
+        $actualizar = "UPDATE MEDICINAS SET nombre_medicina = '$nombre', desc_medicina = '$descripcion', tipo_medicina = '$tipo_medicina' WHERE cod_medicinas = '$idMedicina'";
         $resultado2 = $conexion->prepare($actualizar);
         $resultado2->execute();
         header('Location: ../vistas/medicinas_doctor.php?id='.$idDoctor);
@@ -39,6 +40,9 @@ session_start();
                         </div>
                         <div class="mb-3">
                             <input type="text" class="form-control" name="descripcion" placeholder="" value="<?php echo $dat['desc_medicina']; ?>">                    
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="tipo_medicina" placeholder="" value="<?php echo $dat['tipo_medicina']; ?>">                    
                         </div>
                         <button type="submit" class="btn btn-primary btn-block" name="crearRegistro">Finalizar</button>
                     <?php } ?>

@@ -13,9 +13,7 @@ session_start();
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-    print_r($data);
     $cantidad_elementos = count($data);
-    echo "CANTIDAD: " . $cantidad_elementos;
     if($data === NULL OR $cantidad_elementos == 0){
         echo "ARRAY VACIO";
         $numero_pregunta = 0;

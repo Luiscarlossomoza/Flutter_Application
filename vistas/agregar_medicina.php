@@ -17,11 +17,9 @@ session_start();
             WHERE   MT.cod_medicinas = M.cod_medicinas
             AND MT.cod_tratamiento = '$cod_tratamiento'
             )";
-    echo "CONSULTA " . $consulta;
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-    print_r($data);
     if(isset($_POST['pacientes'])){
         $medicina_elegida = $_POST['pacientes'];
         $periocidad = $_POST['PERIOCIDAD'];
@@ -48,16 +46,16 @@ session_start();
                         <?php } ?>
                     </select>
                     <div class="mb-3">
-                        <label for="PERIOCIDAD" class="form-label">Periocidad:</label>
-                        <input type="text" class="form-control" name="PERIOCIDAD" placeholder="Ingresa PERIOCIDAD">                    
+                        <label for="PERIOCIDAD" class="form-label">Ingrese la periodicidad con la que debe tomar la medicina:</label>
+                        <input type="text" class="form-control" name="PERIOCIDAD" placeholder="Periodicidad">                    
                     </div>
                     <div class="mb-3">
-                        <label for="fecha_consumo" class="form-label">fecha_consumo:</label>
-                        <input type="time" class="form-control" name="fecha_consumo" placeholder="Ingresa la hora a la que debe tomar la medicina">                    
+                        <label for="fecha_consumo" class="form-label">Ingrese la hora a la que debe tomar la medicina:</label>
+                        <input type="time" class="form-control" name="fecha_consumo" placeholder="Hora">                    
                     </div>
                     <div class="mb-3">
-                        <label for="cantidad_recomendada" class="form-label">cantidad_recomendada:</label>
-                        <input type="number" class="form-control" name="cantidad_recomendada" placeholder="cantidad_recomendada">                    
+                        <label for="cantidad_recomendada" class="form-label">Ingrese la cantidad de comida que el paciente debe tomar:</label>
+                        <input type="number" class="form-control" name="cantidad_recomendada" placeholder="Cantidad">                    
                     </div>
                     <input type="submit" value="contestar">
                 </div>

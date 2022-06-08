@@ -8,12 +8,16 @@ session_start();
         if(isset($_POST['crearRegistro'])){
             $nombre = $_POST['nombre_medicina'];
             $descripcion = $_POST['desc_medicina'];
-            $consulta = "INSERT INTO MEDICINAS (nombre_medicina,desc_medicina,cod_doctor) VALUES ('$nombre','$descripcion','$idDoctor')";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-            header('Location: ../vistas/medicinas_doctor.php?id='.$idDoctor);
-            exit();
+            if(isset($_POST['pacientes'])){
+                $medicina_elegida = $_POST['pacientes'];
+                $consulta = "INSERT INTO MEDICINAS (nombre_medicina,desc_medicina,cod_doctor,tipo_medicina) VALUES ('$nombre','$descripcion','$idDoctor','$medicina_elegida')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                header('Location: ../vistas/medicinas_doctor.php?id='.$idDoctor);
+                exit();
+            }else{
+            }
         }
 ?>
 <div class="container">
@@ -27,12 +31,21 @@ session_start();
             <div class="col-sm-6 offset-3">
             <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
                 <div class="mb-3">
-                    <label for="nombre_medicina" class="form-label">nombre_medicina:</label>
+                    <label for="nombre_medicina" class="form-label">Ingrese el nombre de la medicina:</label>
                     <input type="text" class="form-control" name="nombre_medicina" placeholder="Ingresa el nombre_medicina">                    
                 </div>
                 <div class="mb-3">
-                    <label for="desc_medicina" class="form-label">desc_medicina:</label>
+                    <label for="desc_medicina" class="form-label">Ingrese los datos de la medicina:</label>
                     <input type="text" class="form-control" name="desc_medicina" placeholder="Ingresa el desc_medicina">                    
+                </div>
+                <div class="mb-3">
+                    <select name="pacientes" class="form-control">
+                        <option value="0">Seleccione como se administra:</option>
+                        <option value="PASTILLA">Pastilla</option>
+                        <option value="INYECCION">Inyeccion</option>
+                        <option value="CUCHARA">Cuchara</option>
+                        <option value="LIQUIDO">Liquido</option>
+                    </select>                
                 </div>
                 <button type="submit" class="btn btn-primary w-100" name="crearRegistro">Crear Registro</button>
 

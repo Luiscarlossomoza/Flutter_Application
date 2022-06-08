@@ -37,6 +37,7 @@ session_start();
                             <th>Codigo</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@ session_start();
                                 <td><?php echo $dat['cod_medicinas'] ?></td>
                                 <td><?php echo $dat['nombre_medicina'] ?></td>
                                 <td><?php echo $dat['desc_medicina'] ?></td>
+                                <td><?php echo $dat['tipo_medicina'] ?></td>
                                 <td class="text-center">
                                     <a href="../vistas/editar_medicina.php?id=<?php echo $dat['cod_medicinas']."&doctor=". $idDoctor;?>" class="btn btn-primary"> Editar </a>
                                     <a href="../vistas/borrar_medicina.php?id=<?php echo $dat['cod_medicinas']."&doctor=". $idDoctor; ?>" class="btn btn-danger"> Borrar </a>

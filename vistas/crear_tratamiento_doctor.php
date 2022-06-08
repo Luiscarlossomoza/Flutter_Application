@@ -84,6 +84,13 @@ session_start();
         }
     }
     if(isset($_POST['crearRegistro'])){
+        $desc_tratamiento = $_POST['desc_tratamiento'];
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_final = $_POST['fecha_final'];
+        $cod_tratamiento  = $_GET['cod_tratamiento'];
+        $actualizar = "UPDATE TRATAMIENTO SET desc_tratamiento = '$desc_tratamiento', fecha_inicio = '$fecha_inicio', fecha_final = '$fecha_final' WHERE cod_tratamiento = '$cod_tratamiento'";
+        $resultado = $conexion->prepare($actualizar);
+        $resultado->execute();
         header("Location: ../vistas/dashboard_prueba.php?id=".$dataDoctor[0]['cod_doctor']);
         exit();
     }
@@ -138,6 +145,18 @@ session_start();
     </div>
     </form>
         <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
+        <div class="mb-3">
+        <label for="desc_tratamiento" class="form-label">Ingrese la descripcion del tratamiento:</label>
+        <input type="text" class="form-control" name="desc_tratamiento" placeholder="Ingresa la descripcion del tratamiento">                    
+    </div>
+    <div class="mb-3">
+        <label for="fecha_inicio" class="form-label">Ingrese la fecha donde comienza el tratamiento:</label>
+        <input type="date" class="form-control" name="fecha_inicio" placeholder="Ingresa la fecha de inicio del tratamiento">                    
+    </div>
+    <div class="mb-3">
+        <label for="fecha_final" class="form-label">Ingrese la fecha donde termina el tratamiento:</label>
+        <input type="date" class="form-control" name="fecha_final" placeholder="Ingresa la fecha de inicio del tratamiento">                    
+    </div>
             <button type="submit" class="btn btn-primary btn-block" name="crearRegistro">Finalizar</button>
         </form>
     </div>   

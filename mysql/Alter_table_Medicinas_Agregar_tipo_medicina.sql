@@ -1,0 +1,3 @@
+SELECT * FROM flutter_prueba.medicinas;
+
+ALTER TABLE MEDICINAS ADD tipo_medicina VARCHAR(20) DEFAULT "PASTILLA" NOT NULL;

@@ -11,9 +11,7 @@ session_start();
     $cod_paciente = $_GET['cod_paciente'];
     if(isset($_GET['np'])){
         $cod_comida = $_GET['np'];
-        echo $cod_comida;
     }else{
-        echo "PRIMERA COMIDA";
     }
     if(isset($_POST['crearRegistro'])){
         $desc_comida = $_POST['desc_comida'];
@@ -40,21 +38,22 @@ session_start();
     <div class="col-sm-6 offset-3">
     <form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
         <div class="mb-3">
-            <label for="desc_comida" class="form-label">desc_comida:</label>
+            <label for="desc_comida" class="form-label">Ingrese nombre de la comida:</label>
             <input type="text" class="form-control" name="desc_comida" placeholder="Ingresa la comida">                    
         </div>
         <div class="mb-3">
-            <label for="tipo_comida" class="form-label">tipo_comida:</label>
+            <label for="tipo_comida" class="form-label">Ingrese el tipo de alimento:</label>
             <input type="text" class="form-control" name="tipo_comida" placeholder="Ingresa el tipo_comida">                    
         </div>
         <div class="mb-3">
-            <label for="PERIOCIDAD" class="form-label">Periocidad:</label>
+            <label for="PERIOCIDAD" class="form-label">Ingrese la periodicidad del alimento:</label>
             <input type="text" class="form-control" name="PERIOCIDAD" placeholder="Ingresa PERIOCIDAD">                    
         </div>
         <div class="mb-3">
-            <label for="fecha_consumo" class="form-label">fecha_consumo:</label>
+            <label for="fecha_consumo" class="form-label">Ingrese la hora del dia en que debe consumirlo:</label>
             <input type="time" class="form-control" name="fecha_consumo" placeholder="Ingresa la hora a la que debe tomar la medicina">                    
         </div>
+        
         <button type="submit" class="btn btn-primary w-100" name="crearRegistro">Crear Registro</button>
 
         </form>

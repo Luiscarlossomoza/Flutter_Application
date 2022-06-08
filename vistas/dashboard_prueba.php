@@ -17,7 +17,7 @@
                     <thead class="text-center">
                         <tr>
                             <th>Codigo formulario</th>
-                            <th>Codigo paciente</th>
+                            <th>Paciente</th>
                             <th>Fecha contestado</th>
                             <th>Acciones</th>
                         </tr>
@@ -26,7 +26,14 @@
                         <?php foreach($data as $dat){ ?>
                             <tr>
                                 <td><?php echo $dat['cod_formulario'] ?></td>
-                                <td><?php echo $dat['cod_paciente'] ?></td>
+                                <td><?php 
+                                    $paciente = $dat['cod_paciente'];
+                                    $consultaPaciente = "SELECT * FROM PACIENTE WHERE cod_paciente = '$paciente'";
+                                    $resultado = $conexion->prepare($consultaPaciente);
+                                    $resultado->execute();
+                                    $dataPaciente=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                                    echo $dataPaciente[0]['nombre_paciente'];
+                                ?></td>
                                 <td><?php echo $dat['fecha_contestado'] ?></td>
                                 <td class="text-center">
                                     <a href="../vistas/revisar_respuestas.php?id=<?php echo $dat['cod_formulario'] ?>" class="btn btn-primary"> Revisar </a>
